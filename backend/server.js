@@ -24,7 +24,7 @@ app.use(cookieParser())
 
 app.use('/api/auth',authRoutes)
 app.use("/api/message",messageRoutes)
-app.use("/api/user",userRouter)
+app.use("/api/users",userRouter)
 
 
 app.listen(PORT,() =>{

@@ -56,6 +56,8 @@ export const signup = async (req,res) =>{
     }
 }
 export const login = async (req,res) =>{
+    console.log("request to login")
+    console.log(req.body)
     try {
         const result = validationResult(req);
         if(!result.isEmpty()){
@@ -65,7 +67,7 @@ export const login = async (req,res) =>{
         console.log(username,password);
         const user = await User.findOne({username});
         if(!user){
-            return res.status(401).send({error: "Invalid username"})
+            return res.status(400).send({error: "Invalid username"})
         }
         const isPasswordCorrect = await bcrypt.compare(password,user.password);
         console.log(isPasswordCorrect);
@@ -74,7 +76,7 @@ export const login = async (req,res) =>{
         }
         genrateTokenAndSetCookie(user._id,res)
 
-        res.send({
+        res.status(200).send({
             _id: user._id,
             fullName: user.fullName,
             username: user.username,

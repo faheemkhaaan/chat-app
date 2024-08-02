@@ -2,6 +2,7 @@ import Conversations from "../models/conversation.model.js";
 import Message from "../models/message.model.js";
 
 export const sendMessage = async (req,res) =>{
+    console.log(req.body);
     try {
         const {message} = req.body;
         const {id: receiverId} = req.params
