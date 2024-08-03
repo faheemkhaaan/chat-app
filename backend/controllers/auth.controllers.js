@@ -56,21 +56,17 @@ export const signup = async (req,res) =>{
     }
 }
 export const login = async (req,res) =>{
-    console.log("request to login")
-    console.log(req.body)
     try {
         const result = validationResult(req);
         if(!result.isEmpty()){
             return res.status(401).send(result.array())
         }
         const {username,password} = matchedData(req);
-        console.log(username,password);
         const user = await User.findOne({username});
         if(!user){
             return res.status(400).send({error: "Invalid username"})
         }
         const isPasswordCorrect = await bcrypt.compare(password,user.password);
-        console.log(isPasswordCorrect);
         if(!isPasswordCorrect){
             return res.status(400).send({error: "Invalid password"})
         }
